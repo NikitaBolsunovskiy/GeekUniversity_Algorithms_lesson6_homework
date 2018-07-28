@@ -77,8 +77,8 @@ void insert(Node **head, T value){
 
 int main() {
 
-    //solution1();
-    solution2();
+    solution1();
+    //solution2();
 
     return 0;
 }
@@ -97,7 +97,7 @@ int simpleHash(const char *s){
 
 void solution1(){
 
-    char * str = "";
+    char str[] = "";
     printf("Введите строку для расчета простого ХЕШа: \n");
     scanf("%s",str);
 

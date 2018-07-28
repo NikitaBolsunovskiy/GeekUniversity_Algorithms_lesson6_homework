@@ -14,6 +14,29 @@ typedef struct Node{
     struct Node *parent;
 } Node;
 
+void printTree(Node *root){
+    if(root){
+        printf("%d",root->data);
+        if (root->left || root->right){
+            printf("(");
+            if (root->left){
+                printTree(root->left);
+            } else {
+                printf("NULL");
+            }
+            printf(",");
+            if (root->right){
+                printTree(root->right);
+            } else {
+                printf("NULL");
+            }
+            printf(")");
+        }
+    }
+}
+
+
+
 
 int main() {
 

@@ -5,10 +5,20 @@
 void solution1();
 int simpleHash(char string[]);
 
+void solution2();
+typedef int T;
+typedef struct Node{
+    T data;
+    struct Node *left;
+    struct Node *right;
+    struct Node *parent;
+} Node;
+
 
 int main() {
 
-    solution1();
+    //solution1();
+    solution2();
 
     return 0;
 }
@@ -32,5 +42,9 @@ void solution1(){
     scanf("%s",&str);
 
     printf("ХЕШ строки: %d", simpleHash(str));
+
+}
+
+void solution2(){
 
 }

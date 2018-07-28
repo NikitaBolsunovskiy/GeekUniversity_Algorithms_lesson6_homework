@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 void solution1();
-int simpleHash(char string[]);
+int simpleHash(const char * s);
 
 void solution2();
 typedef int T;
@@ -35,7 +35,44 @@ void printTree(Node *root){
     }
 }
 
+Node * getFreeNode(T value, Node * parent){
+    Node * tmp = malloc(sizeof(Node));
+    tmp->data = value;
+    tmp->left = tmp->right = NULL;
+    tmp->parent = parent;
+    return tmp;
+}
 
+void insert(Node **head, T value){
+
+    Node *tmp = NULL;
+    if (*head == NULL){
+        *head = getFreeNode(value,NULL);
+        return;
+    }
+    tmp = *head;
+    while(tmp){
+        if(value > tmp->data){
+            if(tmp->right){
+                tmp = tmp->right;
+                continue;
+            } else {
+                tmp->right = getFreeNode(value,tmp);
+                return;
+            }
+        } else if(value < tmp->data){
+            if(tmp->left){
+                tmp = tmp->left;
+                continue;
+            } else {
+                tmp->left = getFreeNode(value,tmp);
+                return;
+            }
+        } else {
+            exit(2);
+        }
+    }
+}
 
 
 int main() {
@@ -46,12 +83,12 @@ int main() {
     return 0;
 }
 
-int simpleHash(char string[]){
+int simpleHash(const char *s){
 
     int i = 0;
     int sum = 0;
-    while(string[i]!='\0'){
-        sum+=(int)string[i];
+    while(s[i]!='\0'){
+        sum+=(int)s[i];
         i++;
     }
     return sum;
@@ -60,9 +97,9 @@ int simpleHash(char string[]){
 
 void solution1(){
 
-    char str[255] = "";
+    char * str = "";
     printf("Введите строку для расчета простого ХЕШа: \n");
-    scanf("%s",&str);
+    scanf("%s",str);
 
     printf("ХЕШ строки: %d", simpleHash(str));
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <string.h>
 
 void solution1();
 int simpleHash(const char * s);
@@ -8,8 +9,14 @@ int simpleHash(const char * s);
 void solution2();
 void solution3();
 typedef int T;
+
 typedef struct Node{
     T data;
+
+    int key;
+    int age;
+    char Name[150];
+
     struct Node *left;
     struct Node *right;
     struct Node *parent;
@@ -44,6 +51,17 @@ Node * getFreeNode(T value, Node * parent){
     return tmp;
 }
 
+Node * getFreeNode_record(T value, Node * parent, int key, int age, const char Name[]){
+    Node * tmp = malloc(sizeof(Node));
+    tmp->data = value;
+    tmp->key = key;
+    tmp->age = age;
+    strcpy(tmp->Name,Name);
+    tmp->left = tmp->right = NULL;
+    tmp->parent = parent;
+    return tmp;
+}
+
 void insert(Node **head, T value){
 
     Node *tmp = NULL;
@@ -67,6 +85,37 @@ void insert(Node **head, T value){
                 continue;
             } else {
                 tmp->left = getFreeNode(value,tmp);
+                return;
+            }
+        } else {
+            exit(2);
+        }
+    }
+}
+
+void insert_record(Node **head, T value, int key, int age, const char Name[]){
+
+    Node *tmp = NULL;
+    if (*head == NULL){
+        *head = getFreeNode_record(value,NULL,key, age, Name);
+        return;
+    }
+    tmp = *head;
+    while(tmp){
+        if(value > tmp->data){
+            if(tmp->right){
+                tmp = tmp->right;
+                continue;
+            } else {
+                tmp->right = getFreeNode_record(value,tmp,key, age, Name);
+                return;
+            }
+        } else if(value < tmp->data){
+            if(tmp->left){
+                tmp = tmp->left;
+                continue;
+            } else {
+                tmp->left = getFreeNode_record(value,tmp,key, age, Name);
                 return;
             }
         } else {
@@ -197,5 +246,36 @@ void solution2(){
 }
 
 void solution3() {
+
+    char filePath[] = "D:\\Java_projects_Study\\05_Algorithms_and_data_structures\\06\\homework\\DataBase.txt";
+    FILE * file = fopen(filePath,"r");
+    if (file==NULL) {
+        puts("Не удалось открыть Файл!");
+        exit(1);
+    }
+    int count;
+    fscanf(file,"%d",&count);
+
+    Node *Tree = NULL;
+
+    int i;
+    for (i = 0; i < count; ++i) {
+        int key;
+        int age;
+        char Name[150];
+        fscanf(file,"%s",Name);
+        fscanf(file,"%d",&age);
+        fscanf(file,"%d",&key);
+        printf("%d    %d    %s\n", key, age, Name);
+
+        insert_record(&Tree,key,key,age,Name);
+
+    }
+
+    // Понятно, что в общем нужно вместо изначально уникального key в базе данных организовать формирования хешей и поиск...
+
+    Node * tmp = getNodeByValue(Tree,5);
+    printf("Найденная запись базы данных:\n");
+    printf("%d    %d   %s\n",tmp->key,tmp->age,tmp->Name);
 
 }

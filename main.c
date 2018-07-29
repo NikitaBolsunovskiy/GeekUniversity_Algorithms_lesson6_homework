@@ -74,11 +74,33 @@ void insert(Node **head, T value){
     }
 }
 
+void preOrderTravers(Node *root){
+    if (root){
+        printf("%d", root->data);
+        preOrderTravers(root->left);
+        preOrderTravers(root->right);
+    }
+}
+void inOrderTravers(Node *root){
+    if (root){
+        preOrderTravers(root->left);
+        printf("%d", root->data);
+        preOrderTravers(root->right);
+    }
+}
+void postOrderTravers(Node *root){
+    if (root){
+        preOrderTravers(root->left);
+        preOrderTravers(root->right);
+        printf("%d", root->data);
+    }
+}
+
 
 int main() {
 
-    solution1();
-    //solution2();
+    //solution1();
+    solution2();
 
     return 0;
 }
@@ -106,5 +128,7 @@ void solution1(){
 }
 
 void solution2(){
+
+
 
 }

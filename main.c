@@ -6,6 +6,7 @@ void solution1();
 int simpleHash(const char * s);
 
 void solution2();
+void solution3();
 typedef int T;
 typedef struct Node{
     T data;
@@ -103,7 +104,8 @@ void postOrderTravers(Node *root){
 int main() {
 
     //solution1();
-    solution2();
+    //solution2();
+    solution3();
 
     return 0;
 }
@@ -128,40 +130,6 @@ void solution1(){
 
     printf("ХЕШ строки: %d", simpleHash(str));
 
-}
-
-void readComandLine(const  char * comandLine, char *filePath, int *orderVar){
-    int i = 0;
-    while (comandLine[i]!= '\0'){
-
-        if (comandLine[i]=='/'){
-            i++;
-            if(comandLine[i]=='f'){
-                i++;
-                i++;
-                int j = 0;
-                while (comandLine[i]!= '/') {
-                    filePath[j] = comandLine[i];
-                    i++;
-                    j++;
-                }
-            } else if (comandLine[i] == 'v'){
-                i++;
-                i++;
-                if (comandLine[i] == '1'){
-                    *orderVar = 1;
-                } else if (comandLine[i] == '2'){
-                    *orderVar = 2;
-                } else if (comandLine[i] == '3'){
-                    *orderVar = 3;
-                } else {
-                    *orderVar = -1;
-                }
-            }
-        } else{
-            i++;
-        }
-    }
 }
 
 Node *getNodeByValue(Node *root, T value) {
@@ -226,4 +194,8 @@ void solution2(){
     } else {
         printf("\nнайденный элемент: %d\n",tmp->data);
     }
+}
+
+void solution3() {
+
 }

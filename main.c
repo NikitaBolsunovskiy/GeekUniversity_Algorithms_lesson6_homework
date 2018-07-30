@@ -102,7 +102,7 @@ void insert_record(Node **head, T value, int key, int age, const char Name[]){
     }
     tmp = *head;
     while(tmp){
-        if(value > tmp->data){
+        if(value >= tmp->data){
             if(tmp->right){
                 tmp = tmp->right;
                 continue;
@@ -268,13 +268,11 @@ void solution3() {
         fscanf(file,"%d",&key);
         printf("%d    %d    %s\n", key, age, Name);
 
-        insert_record(&Tree,key,key,age,Name);
+        insert_record(&Tree,age,key,age,Name);
 
     }
 
-    // Понятно, что в общем нужно вместо изначально уникального key в базе данных организовать формирования хешей и поиск...
-
-    Node * tmp = getNodeByValue(Tree,5);
+    Node * tmp = getNodeByValue(Tree,22);
     printf("Найденная запись базы данных:\n");
     printf("%d    %d   %s\n",tmp->key,tmp->age,tmp->Name);
 
